@@ -160,6 +160,10 @@
             object-fit: cover;
             border-bottom: 1px solid rgba(80,70,150,0.3);
         }
+/* Для видео особенно важно */
+video.thumb {
+    pointer-events: none;      /* чтобы клик по видео не мешал клику по всей карточке */
+}
         .info {
             padding: 1.8rem;
             text-align: center;
@@ -255,7 +259,7 @@
 
     <script>
     const games = [
-{ url: "https://agar.su/", img: "https://avatars.mds.yandex.net/get-games/12797757/2a000001932c69761aec3953d5fd1d12c8e5/pjpg464x261" },
+{ url: "https://agar.su/", video: "https://игры.online/video/agarsu.mp4" },
 { url: "https://krunker.io/", img: "https://clan.steamstatic.com/images/39005686/ebb792ee30c08f6ba1241398ecd6ca021c760edc.png" },
 { url: "https://shellshock.io/", img: "https://www.shellshock.io/img/previewImage_shellShockers.webp" },
 { url: "https://bitheroesarena.io/", img: "https://bitheroesarena.io/img/meta-bha-img.png" },
@@ -277,28 +281,59 @@
         }
     }
 
-    function buildGrid() {
-        const grid = document.getElementById("grid");
-        grid.innerHTML = "";
+function buildGrid() {
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
 
-        games.forEach(g => {
-            const title = extractName(g.url);
+    games.forEach(g => {
+        const title = extractName(g.url);
 
-            const card = document.createElement("div");
-            card.className = "game-card";
-            card.onclick = () => play(g.url);
+        const card = document.createElement("div");
+        card.className = "game-card";
+        card.onclick = () => play(g.url);
 
-            card.innerHTML = `
-                <img src="${g.img}" class="thumb">
-                <div class="info">
-                    <div class="title">${title}</div>
-                    <a href="#" class="play-btn" onclick="event.stopPropagation(); play('${g.url}')">ИГРАТЬ СЕЙЧАС</a>
+        // Определяем, что показывать вверху карточки
+        let mediaHTML = "";
+
+        if (g.video) {
+            mediaHTML = `
+                <video 
+                    class="thumb" 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline
+                    src="${g.video}">
+                    <!-- fallback на случай, если видео не загрузится -->
+                    <img src="${g.img || 'https://via.placeholder.com/340x220?text=Видео+недоступно'}" alt="${title}">
+                </video>
+            `;
+        } else if (g.img) {
+            mediaHTML = `
+                <img 
+                    src="${g.img}" 
+                    class="thumb" 
+                    alt="${title}">
+            `;
+        } else {
+            mediaHTML = `
+                <div class="thumb" style="background:#222; display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:#666;">
+                    Нет превью
                 </div>
             `;
+        }
 
-            grid.appendChild(card);
-        });
-    }
+        card.innerHTML = `
+            ${mediaHTML}
+            <div class="info">
+                <div class="title">${title}</div>
+                <a href="#" class="play-btn" onclick="event.stopPropagation(); play('${g.url}')">ИГРАТЬ СЕЙЧАС</a>
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
 
     /* =============================
        3. ВСПЛЫВАЮЩЕЕ ИГРОВОЕ ОКНО
