@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Коллекция лучших браузерных онлайн игр 2025. Играй мгновенно без скачивания.">
+    <title>Игры Онлайн</title>
+    <link rel="icon" href="./icon.png" >
+    <meta property="og:title" content="игры.online — онлайн-игры">
+    <meta property="og:description" content="Бесплатные Онлайн игры!">
+    <meta property="og:image" content="https://игры.online/img.jpg">
+    <meta property="og:url" content="https://игры.online">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0d0b14;
+            --glass: rgba(20, 18, 38, 0.55);
+            --glass-border: rgba(80, 70, 150, 0.25);
+            --accent: #00f5a0;
+            --accent-glow: #00f5a066;
+            --text: #f0f0ff;
+            --text-muted: #b0b0e0;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            background-image: 
+                radial-gradient(circle at 20% 80%, #1a1555 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #002215 0%, transparent 50%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Фоновые частицы */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, #00f5a0, transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 100px 100px;
+            animation: float 25s linear infinite;
+            opacity: 0.15;
+        }
+        @keyframes float { 0% { transform: translateY(0); } 100% { transform: translateY(-100px); } }
+
+        header {
+            position: relative;
+            padding: 5rem 1rem 8rem;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero-glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 3rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.6),
+                0 0 80px var(--accent-glow);
+        }
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #00f5a0, #7bffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -3px;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        .counter {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 1rem;
+            text-shadow: 0 0 0 20px var(--accent-glow);
+        }
+
+        .container { max-width: 1500px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+
+        .search-box {
+            position: relative;
+            max-width: 700px;
+            margin: -4rem auto 4rem;
+            z-index: 10;
+        }
+        #search {
+            width: 100%;
+            padding: 1.4rem 2rem;
+            font-size: 1.3rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 60px;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            outline: none;
+            transition: all 0.4s;
+        }
+        #search:focus {
+            box-shadow: 0 0 0 4px var(--accent-glow);
+            transform: scale(1.02);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .game-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            border-radius: 24px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .game-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,245,160,0.1), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+			cursor: pointer;
+        }
+        .game-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 0 30px 80px var(--accent-glow);
+        }
+        .game-card:hover::before { opacity: 1; }
+
+        .thumb {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(80,70,150,0.3);
+        }
+        .info {
+            padding: 1.8rem;
+            text-align: center;
+        }
+        .title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: white;
+        }
+        .play-btn {
+            background: linear-gradient(90deg, var(--accent), #00d4ff);
+            color: #000;
+            font-weight: 700;
+            padding: 14px 40px;
+            border-radius: 60px;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0,245,160,0.4);
+            transition: all 0.3s;
+        }
+        .play-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,245,160,0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 6rem 1rem 3rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3.2rem; letter-spacing: -2px; }
+            .games-grid { grid-template-columns: 1fr 1fr; }
+            .search-box { margin: -3rem auto 3rem; }
+        }
+        @media (max-width: 480px) {
+            .games-grid { grid-template-columns: 1fr; }
+        }
+		/* === КАСТОМНЫЙ СКРОЛЛБАР === */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px #36674f85 rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff4757;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #36674f85 rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff3742;
+}
+
+/* Для Firefox */
+* {
+    scrollbar-color: #36674f85 rgba(255, 255, 255, 0.1);
+    scrollbar-width: thin;
+}
+    </style>
+</head>
+<body>
+
+    <div class="particles"></div>
+
+<header>
+    <div class="hero-glass">
+        <h1>playigri.ru</h1>
+        <div class="subtitle">Браузерные онлайн игры 2026</div>
+        <div class="counter" id="game-counter">бесплатных игр сейчас: </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="search-box">
+        <input type="text" id="search" placeholder="Поиск игры…">
+    </div>
+
+    <div class="games-grid" id="grid"></div>
+</div>
+
+    <footer>
+        © 2026 игры.online — Все права защищены · Играй мгновенно на любом устройстве
+    </footer>
+
+    <script>
+    const games = [
+{ url: "https://agar.su/", img: "https://avatars.mds.yandex.net/get-games/12797757/2a000001932c69761aec3953d5fd1d12c8e5/pjpg464x261" },
+{ url: "https://krunker.io/", img: "https://clan.steamstatic.com/images/39005686/ebb792ee30c08f6ba1241398ecd6ca021c760edc.png" },
+{ url: "https://shellshock.io/", img: "https://www.shellshock.io/img/previewImage_shellShockers.webp" },
+{ url: "https://bitheroesarena.io/", img: "https://bitheroesarena.io/img/meta-bha-img.png" },
+{ url: "https://smashkarts.io/", img: "https://watchdocumentaries.com/wp-content/uploads/smash-karts-game-768x432.jpg" },
+{ url: "https://www.onlinegames.io/games/2021/unity/army-combat/index.html", img: "https://online3.ru/wp-content/uploads/2023/11/1699450210654b8d6221c70.jpeg" },
+{ url: "https://starve.io/", img: "http://starve.io/img/share-banner.png" },
+{ url: "https://zombs.io/", img: "http://zombs.io/asset/image/misc/twitter-card.png" },
+{ url: "https://miniroyale.io/", img: "https://miniroyale.io/thumbnail.jpg?v=1.1.145" },
+{ url: "https://slowroads.io/", img: "https://slowroads.io/meta-2.0.0.jpg" },
+{ url: "https://littlebigsnake.com/", img: "https://littlebigsnake.com/img/sharing_img.png" },
+{ url: "https://gartic.io/", img: "https://gartic.io/static/images/thumb.png?v=10" }
+];
+    function extractName(url) {
+        try {
+            const u = new URL(url);
+            return u.hostname.replace("www.", ""); // title = домен
+        } catch {
+            return url;
+        }
+    }
+
+    function buildGrid() {
+        const grid = document.getElementById("grid");
+        grid.innerHTML = "";
+
+        games.forEach(g => {
+            const title = extractName(g.url);
+
+            const card = document.createElement("div");
+            card.className = "game-card";
+            card.onclick = () => play(g.url);
+
+            card.innerHTML = `
+                <img src="${g.img}" class="thumb">
+                <div class="info">
+                    <div class="title">${title}</div>
+                    <a href="#" class="play-btn" onclick="event.stopPropagation(); play('${g.url}')">ИГРАТЬ СЕЙЧАС</a>
+                </div>
+            `;
+
+            grid.appendChild(card);
+        });
+    }
+
+    /* =============================
+       3. ВСПЛЫВАЮЩЕЕ ИГРОВОЕ ОКНО
+       ============================= */
+    function play(url) {
+        const overlay = document.createElement('div');
+        overlay.style = 'position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:9999; display:flex; align-items:center; justify-content:center;';
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.style = 'width:100vw; height:100vh; border:none;';
+        overlay.appendChild(iframe);
+
+        const close = document.createElement('div');
+        close.innerHTML = '✕';
+        close.style = 'position:absolute; top:0; right:0; font-size:35px; color:red; padding:10px; cursor:pointer;';
+        close.onclick = () => overlay.remove();
+        overlay.appendChild(close);
+
+        document.body.appendChild(overlay);
+    }
+
+    /* =============================
+       4. ПОИСК
+       ============================= */
+    document.getElementById('search').addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('.game-card').forEach(card => {
+            const title = card.querySelector('.title').textContent.toLowerCase();
+            card.style.opacity = title.includes(term) ? '1' : '0.3';
+            card.style.transform = title.includes(term) ? 'scale(1)' : 'scale(0.95)';
+        });
+    });
+
+    /* =============================
+       5. КРАСИВЫЙ СЧЁТЧИК
+       ============================= */
+    function updateCounter() {
+        const count = games.length;
+        document.getElementById("game-counter").textContent =
+            `бесплатных игр сейчас: ${count.toLocaleString('ru-RU')}`;
+    }
+
+    /* =============================
+       6. ЗАПУСК
+       ============================= */
+    buildGrid();
+    updateCounter();
+
+</script>
+</body>
+</html>
