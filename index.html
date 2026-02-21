@@ -219,34 +219,9 @@ video.thumb {
         @media (max-width: 480px) {
             .games-grid { grid-template-columns: 1fr; }
         }
-		/* === КАСТОМНЫЙ СКРОЛЛБАР === */
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-/* ===== Chrome, Edge, Safari ===== */
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;   /* полностью убираем фон */
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(160,160,160,0.6);
-    border-radius: 20px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(200,200,200,0.8);
-}
-
-/* ===== Firefox ===== */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(160,160,160,0.6) transparent;
-}
+::-webkit-scrollbar{width:2px;height:0;}
+::-webkit-scrollbar-thumb{background-color:#6c6c6c;border-radius:10px;}
+::-webkit-scrollbar-track{background:transparent;}
     </style>
 </head>
 <body>
