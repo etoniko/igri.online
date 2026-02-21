@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Загрузка игры...</title>
+
+<style>
+body {
+    margin:0;
+    background:#000;
+}
+iframe {
+    width:100vw;
+    height:100vh;
+    border:none;
+}
+.back {
+    position:fixed;
+    top:15px;
+    left:15px;
+    z-index:10;
+    background:white;
+    padding:8px 14px;
+    border-radius:50px;
+    font-family:sans-serif;
+    text-decoration:none;
+    color:black;
+}
+</style>
+</head>
+<body>
+
+<a href="/" class="back">← На главную</a>
+<iframe id="frame"></iframe>
+
+<script>
+const games = {
+    agar: "https://agar.su/",
+    krunker: "https://krunker.io/",
+    shellshock: "https://shellshock.io/",
+    smashkarts: "https://smashkarts.io/"
+};
+
+const slug = window.location.search.replace("?", "");
+
+if(games[slug]){
+    document.getElementById("frame").src = games[slug];
+    document.title = slug + " — игры.online";
+}else{
+    window.location.href = "/";
+}
+</script>
+
+</body>
+</html>
