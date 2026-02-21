@@ -111,11 +111,14 @@
         .container { max-width: 1500px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
 
         .search-box {
-            position: relative;
-            max-width: 700px;
-            margin: -4rem auto 4rem;
-            z-index: 10;
-        }
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 700px;
+    z-index: 999;
+}
         #search {
             width: 100%;
             padding: 1.4rem 2rem;
@@ -370,14 +373,48 @@ function buildGrid() {
     /* =============================
        4. ПОИСК
        ============================= */
-    document.getElementById('search').addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        document.querySelectorAll('.game-card').forEach(card => {
-            const title = card.querySelector('.title').textContent.toLowerCase();
-            card.style.opacity = title.includes(term) ? '1' : '0.3';
-            card.style.transform = title.includes(term) ? 'scale(1)' : 'scale(0.95)';
-        });
+document.getElementById('search').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const grid = document.getElementById("grid");
+
+    const filtered = games.filter(g => 
+        extractName(g.url).toLowerCase().includes(term)
+    );
+
+    grid.innerHTML = "";
+
+    filtered.forEach(g => {
+        const title = extractName(g.url);
+
+        const card = document.createElement("div");
+        card.className = "game-card";
+        card.onclick = () => play(g.url);
+
+        let mediaHTML = "";
+
+        if (g.video) {
+            mediaHTML = `
+                <video class="thumb" autoplay loop muted playsinline src="${g.video}"></video>
+            `;
+        } else if (g.img) {
+            mediaHTML = `
+                <img src="${g.img}" class="thumb" alt="${title}">
+            `;
+        }
+
+        card.innerHTML = `
+            ${mediaHTML}
+            <div class="info">
+                <div class="title">${title}</div>
+                <a href="#" class="play-btn" onclick="event.stopPropagation(); play('${g.url}')">
+                    ИГРАТЬ СЕЙЧАС
+                </a>
+            </div>
+        `;
+
+        grid.appendChild(card);
     });
+});
 
     /* =============================
        5. КРАСИВЫЙ СЧЁТЧИК
