@@ -224,26 +224,28 @@ video.thumb {
     width: 12px;
 }
 
+/* ===== Chrome, Edge, Safari ===== */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
 ::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
-    box-shadow: inset 0 0 6px #36674f85 rgba(255, 255, 255, 0.1);
+    background: transparent;   /* полностью убираем фон */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ff4757;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #36674f85 rgba(255, 255, 255, 0.1);
+    background: rgba(160,160,160,0.6);
+    border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #ff3742;
+    background: rgba(200,200,200,0.8);
 }
 
-/* Для Firefox */
+/* ===== Firefox ===== */
 * {
-    scrollbar-color: #36674f85 rgba(255, 255, 255, 0.1);
     scrollbar-width: thin;
+    scrollbar-color: rgba(160,160,160,0.6) transparent;
 }
     </style>
 </head>
