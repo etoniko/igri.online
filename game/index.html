@@ -2,53 +2,111 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<title>Запуск игры</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Загрузка игры...</title>
 
 <style>
-body {
-    margin:0;
-    background:#000;
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #fff;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
 iframe {
-    width:100vw;
-    height:100vh;
-    border:none;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    display: none;
 }
-.back {
-    position:fixed;
-    top:15px;
-    left:15px;
-    z-index:10;
-    background:white;
-    padding:8px 14px;
-    border-radius:50px;
-    font-family:sans-serif;
-    text-decoration:none;
-    color:black;
+
+.wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #fff;
+    color: #000;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.loader {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #000;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 20px;
+}
+
+.message {
+    font-size: 15px;
+    opacity: 0.7;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 </style>
 </head>
+
 <body>
 
-<a href="/" class="back">← На главную</a>
-<iframe id="frame"></iframe>
+<iframe id="gameFrame"></iframe>
+
+<div id="status" class="wrapper">
+    <div class="loader"></div>
+    <div class="message">Загрузка игры...</div>
+</div>
 
 <script>
-const games = {
-    agar: "https://agar.su/",
-    krunker: "https://krunker.io/",
-    shellshock: "https://shellshock.io/",
-    smashkarts: "https://smashkarts.io/"
-};
+const params = new URLSearchParams(window.location.search);
+const url = params.get("url");
 
-const slug = window.location.search.replace("?", "");
+const iframe = document.getElementById("gameFrame");
+const status = document.getElementById("status");
 
-if(games[slug]){
-    document.getElementById("frame").src = games[slug];
-    document.title = slug + " — игры.online";
-}else{
+function goHome() {
     window.location.href = "/";
+}
+
+if (!url) {
+    status.querySelector(".message").innerText =
+        "Игра не найдена\nВозврат на главную...";
+    setTimeout(goHome, 3000);
+} else {
+    iframe.src = url;
+
+    iframe.onload = () => {
+        status.style.display = "none";
+        iframe.style.display = "block";
+    };
+
+    iframe.onerror = () => {
+        status.querySelector(".message").innerText =
+            "Ошибка загрузки\nВозврат на главную...";
+        setTimeout(goHome, 3000);
+    };
+
+    // если сайт блокирует iframe (часто onerror не срабатывает)
+    setTimeout(() => {
+        if (iframe.style.display !== "block") {
+            status.querySelector(".message").innerText =
+                "Загрузка запрещена\nВозврат на главную...";
+            setTimeout(goHome, 3000);
+        }
+    }, 4000);
 }
 </script>
 
