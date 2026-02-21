@@ -99,14 +99,20 @@ if (!url) {
         setTimeout(goHome, 3000);
     };
 
-    // если сайт блокирует iframe (часто onerror не срабатывает)
-    setTimeout(() => {
-        if (iframe.style.display !== "block") {
-            status.querySelector(".message").innerText =
-                "Загрузка запрещена\nВозврат на главную...";
-            setTimeout(goHome, 3000);
-        }
-    }, 4000);
+let loaded = false;
+
+iframe.onload = () => {
+    loaded = true;
+    status.style.display = "none";
+    iframe.style.display = "block";
+};
+
+setTimeout(() => {
+    if (!loaded) {
+        status.querySelector(".message").innerText =
+            "Игра загружается дольше обычного...";
+    }
+}, 5000);
 }
 </script>
 
