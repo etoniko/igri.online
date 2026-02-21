@@ -179,7 +179,7 @@ function buildGrid(list){
             <img src="${g.img}" class="thumb">
             <div class="info">
                 <div class="title">${title}</div>
-                <a class="play-btn" href="/game/?${title}">Играть</a>
+                <a class="play-btn" href="/game/?url=${encodeURIComponent(g.url)}">Играть</a>
             </div>
         `;
 
