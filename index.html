@@ -112,7 +112,7 @@
 
         .search-box {
     position: fixed;
-    bottom: 30px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -215,7 +215,6 @@ video.thumb {
         @media (max-width: 768px) {
             h1 { font-size: 3.2rem; letter-spacing: -2px; }
             .games-grid { grid-template-columns: 1fr 1fr; }
-            .search-box { margin: -3rem auto 3rem; }
         }
         @media (max-width: 480px) {
             .games-grid { grid-template-columns: 1fr; }
