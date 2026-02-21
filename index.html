@@ -3,11 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>игры.online — онлайн игры</title>
 
+<title>Онлайн игры бесплатно — браузерные игры без скачивания | игры.online</title>
+
+<meta name="description" content="Игры онлайн бесплатно без скачивания и регистрации. Лучшие браузерные игры на ПК и телефон. Играйте прямо сейчас — экшен, гонки, стратегии, аркады и многое другое.">
+<meta name="keywords" content="онлайн игры, браузерные игры, игры бесплатно, веб игры, игры без скачивания, играть онлайн, бесплатные игры, игры на пк, игры на телефон">
+<meta name="author" content="игры.online">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<link rel="canonical" href="https://игры.online/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Онлайн игры бесплатно — браузерные игры без скачивания">
+<meta property="og:description" content="Тысячи бесплатных онлайн игр без регистрации. Играйте прямо в браузере на ПК и смартфоне.">
+<meta property="og:url" content="https://игры.online/">
+<meta property="og:site_name" content="игры.online">
+<meta property="og:image" content="https://игры.online/photo/preview.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Онлайн игры бесплатно — браузерные игры">
+<meta name="twitter:description" content="Лучшие бесплатные браузерные игры без скачивания.">
+<meta name="twitter:image" content="https://игры.online/photo/preview.jpg">
+
+<!-- Favicon -->
+<link rel="icon" href="https://xn--c1ajz8b.online/" type="image/svg+xml">
+
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
+<!-- Styles -->
 <link href="/assets/style.css" rel="stylesheet">
+
+<!-- JS -->
+<script defer src="/assets/main.js"></script>
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "игры.online",
+  "url": "https://игры.online/",
+  "description": "Онлайн игры бесплатно без скачивания и регистрации. Лучшие браузерные веб-игры для ПК и телефона.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://игры.online/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
 </head>
 <body>
 
@@ -29,117 +76,5 @@
 <footer>
 © 2026 игры.online
 </footer>
-
-<script>
-    const games = [
-{ url: "https://agar.su/", video: "https://игры.online/video/agarsu.mp4" },
-{ url: "https://agartime.ru/", img: "https://agartime.ru/img/512x512.png" },
-{ url: "https://krunker.io/", img: "https://clan.steamstatic.com/images/39005686/ebb792ee30c08f6ba1241398ecd6ca021c760edc.png" },
-{ url: "https://shellshock.io/", img: "https://www.shellshock.io/img/previewImage_shellShockers.webp" },
-{ url: "https://games.voodoo.io/paperio2", img: "https://игры.online/photo/paper.png" },
-{ url: "https://smashkarts.io/", img: "https://watchdocumentaries.com/wp-content/uploads/smash-karts-game-768x432.jpg" },
-{ url: "https://www.onlinegames.io/games/2021/unity/army-combat/index.html", img: "https://static.wgplayground.com/a46bcda7b51d30c2427700dc1d51e28e/wgplayground/69afdcaf7beb92af828db763568e1ffe.jpg" },
-{ url: "https://starve.io/", img: "https://starve.io/img/share-banner.png" },
-{ url: "https://hordes.io/", img: "https://cubiq.ru/wp-content/uploads/2023/01/hordes-io-base-660x371.webp" },
-{ url: "https://miniroyale.io/", img: "https://miniroyale.io/thumbnail.jpg?v=1.1.145" },
-{ url: "https://slowroads.io/", img: "https://slowroads.io/meta-2.0.0.jpg" },
-{ url: "https://littlebigsnake.com/", img: "https://littlebigsnake.com/img/sharing_img.png" },
-{ url: "https://gartic.io/", img: "https://gartic.io/static/images/thumb.png?v=10" },
-{ url: "https://taming.io/", img: "https://игры.online/photo/tamingio.png" }
-];
-    function extractName(url) {
-        try {
-            const u = new URL(url);
-            return u.hostname.replace("www.", ""); // slug = домен
-        } catch {
-            return url;
-        }
-    }
-
-function buildGrid(list){
-    const grid = document.getElementById("grid");
-    grid.innerHTML = "";
-
-    list.forEach(g => {
-        const title = extractName(g.url);
-
-        let mediaHTML = "";
-
-        if (g.video) {
-            mediaHTML = `
-                <video 
-                    class="thumb" 
-                    autoplay 
-                    loop 
-                    muted 
-                    playsinline
-                    src="${g.video}">
-                </video>
-            `;
-        } else {
-            mediaHTML = `
-                <img src="${g.img}" class="thumb" alt="${title}">
-            `;
-        }
-
-        const card = document.createElement("div");
-        card.className = "game-card";
-        card.innerHTML = `
-            ${mediaHTML}
-            <div class="info">
-                <div class="title">${title}</div>
-                <a class="play-btn" href="/game/?url=${encodeURIComponent(g.url)}">Играть</a>
-            </div>
-        `;
-
-        grid.appendChild(card);
-    });
-}
-
-document.getElementById("search").addEventListener("input", e => {
-    const term = e.target.value.toLowerCase();
-
-    const filtered = games.filter(g =>
-        extractName(g.url).toLowerCase().includes(term)
-    );
-
-    buildGrid(filtered);
-});
-
-/* Счетчик игр */
-function updateCounter() {
-    document.getElementById("game-counter").textContent =
-        "бесплатных игр сейчас: " + games.length;
-}
-
-/* АВТО-ТЕМА */
-const mediaQuery=window.matchMedia("(prefers-color-scheme: dark)");
-function applyTheme(t){document.documentElement.setAttribute("data-theme",t);}
-function initTheme(){
-    const saved=localStorage.getItem("theme");
-    applyTheme(saved || (mediaQuery.matches?"dark":"light"));
-}
-function toggleTheme(){
-    const current=document.documentElement.getAttribute("data-theme");
-    const newTheme=current==="dark"?"light":"dark";
-    applyTheme(newTheme);
-    localStorage.setItem("theme",newTheme);
-}
-mediaQuery.addEventListener("change",e=>{
-    if(!localStorage.getItem("theme")){
-        applyTheme(e.matches?"dark":"light");
-    }
-});
-
-buildGrid(games);
-initTheme();
-updateCounter();
-
-
-
-
-
-</script>
-
 </body>
 </html>
