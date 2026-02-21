@@ -97,6 +97,9 @@ h1 { font-size:2.8rem; font-weight:800; }
     height:180px;
     object-fit:cover;
 }
+video.thumb {
+    pointer-events: none;   /* клик проходит сквозь видео к карточке */
+}
 
 .info { padding:16px; }
 
@@ -173,10 +176,29 @@ function buildGrid(list){
     list.forEach(g => {
         const title = extractName(g.url);
 
+        let mediaHTML = "";
+
+        if (g.video) {
+            mediaHTML = `
+                <video 
+                    class="thumb" 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline
+                    src="${g.video}">
+                </video>
+            `;
+        } else {
+            mediaHTML = `
+                <img src="${g.img}" class="thumb" alt="${title}">
+            `;
+        }
+
         const card = document.createElement("div");
         card.className = "game-card";
         card.innerHTML = `
-            <img src="${g.img}" class="thumb">
+            ${mediaHTML}
             <div class="info">
                 <div class="title">${title}</div>
                 <a class="play-btn" href="/game/?url=${encodeURIComponent(g.url)}">Играть</a>
