@@ -40,7 +40,7 @@ header {
 }
 
 h1 { font-size:2.8rem; font-weight:800; }
-.subtitle { color:var(--muted); margin-top:.5rem; }
+.subtitle { color:var(--muted); margin-top: 1rem; }
 
 .theme-toggle {
     position:absolute;
@@ -66,6 +66,11 @@ h1 { font-size:2.8rem; font-weight:800; }
 }
 
 .container { max-width:1200px; margin:auto; padding:0 1rem 4rem; }
+.counter {
+    margin-top: 0.5rem;
+    font-weight: 600;
+    color: var(--muted);
+}
 
 .games-grid {
     display:grid;
@@ -122,6 +127,7 @@ footer {
 <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
 <h1>игры.online</h1>
 <div class="subtitle">Браузерные онлайн игры</div>
+<div class="counter" id="game-counter"></div>
 </header>
 
 <div class="search-box">
@@ -137,35 +143,64 @@ footer {
 </footer>
 
 <script>
-const games = [
-{ slug:"agar", url:"https://agar.su/", img:"https://starve.io/img/share-banner.png" },
-{ slug:"krunker", url:"https://krunker.io/", img:"https://miniroyale.io/thumbnail.jpg" },
-{ slug:"shellshock", url:"https://shellshock.io/", img:"https://www.shellshock.io/img/previewImage_shellShockers.webp" },
-{ slug:"smashkarts", url:"https://smashkarts.io/", img:"https://watchdocumentaries.com/wp-content/uploads/smash-karts-game-768x432.jpg" }
+    const games = [
+{ url: "https://krunker.io/", img: "https://clan.steamstatic.com/images/39005686/ebb792ee30c08f6ba1241398ecd6ca021c760edc.png" },
+{ url: "https://shellshock.io/", img: "https://www.shellshock.io/img/previewImage_shellShockers.webp" },
+{ url: "https://bitheroesarena.io/", img: "https://bitheroesarena.io/img/meta-bha-img.png" },
+{ url: "https://smashkarts.io/", img: "https://watchdocumentaries.com/wp-content/uploads/smash-karts-game-768x432.jpg" },
+{ url: "https://www.onlinegames.io/games/2021/unity/army-combat/index.html", img: "https://online3.ru/wp-content/uploads/2023/11/1699450210654b8d6221c70.jpeg" },
+{ url: "https://starve.io/", img: "http://starve.io/img/share-banner.png" },
+{ url: "https://zombs.io/", img: "http://zombs.io/asset/image/misc/twitter-card.png" },
+{ url: "https://miniroyale.io/", img: "https://miniroyale.io/thumbnail.jpg?v=1.1.145" },
+{ url: "https://slowroads.io/", img: "https://slowroads.io/meta-2.0.0.jpg" },
+{ url: "https://littlebigsnake.com/", img: "https://littlebigsnake.com/img/sharing_img.png" },
+{ url: "https://gartic.io/", img: "https://gartic.io/static/images/thumb.png?v=10" }
 ];
+    function extractName(url) {
+        try {
+            const u = new URL(url);
+            return u.hostname.replace("www.", ""); // slug = домен
+        } catch {
+            return url;
+        }
+    }
 
 function buildGrid(list){
-    const grid=document.getElementById("grid");
-    grid.innerHTML="";
-    list.forEach(g=>{
-        const card=document.createElement("div");
-        card.className="game-card";
-        card.innerHTML=`
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+
+    list.forEach(g => {
+        const title = extractName(g.url);
+
+        const card = document.createElement("div");
+        card.className = "game-card";
+        card.innerHTML = `
             <img src="${g.img}" class="thumb">
             <div class="info">
-                <div class="title">${g.slug}</div>
-                <a class="play-btn" href="/game/?${g.slug}">Играть</a>
+                <div class="title">${title}</div>
+                <a class="play-btn" href="/game/?${title}">Играть</a>
             </div>
         `;
+
         grid.appendChild(card);
     });
 }
 
-document.getElementById("search").addEventListener("input",e=>{
-    const term=e.target.value.toLowerCase();
-    const filtered=games.filter(g=>g.slug.includes(term));
+document.getElementById("search").addEventListener("input", e => {
+    const term = e.target.value.toLowerCase();
+
+    const filtered = games.filter(g =>
+        extractName(g.url).toLowerCase().includes(term)
+    );
+
     buildGrid(filtered);
 });
+
+/* Счетчик игр */
+function updateCounter() {
+    document.getElementById("game-counter").textContent =
+        "бесплатных игр сейчас: " + games.length;
+}
 
 /* АВТО-ТЕМА */
 const mediaQuery=window.matchMedia("(prefers-color-scheme: dark)");
@@ -188,6 +223,12 @@ mediaQuery.addEventListener("change",e=>{
 
 buildGrid(games);
 initTheme();
+updateCounter();
+
+
+
+
+
 </script>
 
 </body>
