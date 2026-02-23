@@ -1,17 +1,17 @@
     const games = [
 { url: "https://agar.su/", video: "https://игры.online/video/agarsu.mp4" },
-{ url: "https://agartime.ru/", img: "https://agartime.ru/img/512x512.png" },
-{ url: "https://krunker.io/", img: "https://clan.steamstatic.com/images/39005686/ebb792ee30c08f6ba1241398ecd6ca021c760edc.png" },
+{ url: "https://agartime.ru/", img: "https://игры.online/photo/512x512.png" },
+{ url: "https://krunker.io/", img: "https://игры.online/photo/ebb792ee30c08f6ba1241398ecd6ca021c760edc.png" },
 { url: "https://shellshock.io/", img: "https://www.shellshock.io/img/previewImage_shellShockers.webp" },
 { url: "https://games.voodoo.io/paperio2", img: "https://игры.online/photo/paper.png" },
-{ url: "https://smashkarts.io/", img: "https://watchdocumentaries.com/wp-content/uploads/smash-karts-game-768x432.jpg" },
-{ url: "https://www.onlinegames.io/games/2021/unity/army-combat/index.html", img: "https://static.wgplayground.com/a46bcda7b51d30c2427700dc1d51e28e/wgplayground/69afdcaf7beb92af828db763568e1ffe.jpg" },
-{ url: "https://starve.io/", img: "https://starve.io/img/share-banner.png" },
+{ url: "https://smashkarts.io/", img: "https://игры.online/photo/smash-karts-game-768x432.jpg" },
+{ url: "https://www.onlinegames.io/games/2021/unity/army-combat/index.html", img: "https://игры.online/photo/69afdcaf7beb92af828db763568e1ffe.jpg" },
+{ url: "https://starve.io/", img: "https://игры.online/photo/share-banner.png" },
 { url: "https://hordes.io/", img: "https://cubiq.ru/wp-content/uploads/2023/01/hordes-io-base-660x371.webp" },
-{ url: "https://miniroyale.io/", img: "https://miniroyale.io/thumbnail.jpg?v=1.1.145" },
-{ url: "https://slowroads.io/", img: "https://slowroads.io/meta-2.0.0.jpg" },
-{ url: "https://littlebigsnake.com/", img: "https://littlebigsnake.com/img/sharing_img.png" },
-{ url: "https://gartic.io/", img: "https://gartic.io/static/images/thumb.png?v=10" },
+{ url: "https://miniroyale.io/", img: "https://игры.online/photo/thumbnail.jpg" },
+{ url: "https://slowroads.io/", img: "https://игры.online/photo/meta-2.0.0.jpg" },
+{ url: "https://littlebigsnake.com/", img: "https://игры.online/photo/sharing_img.png" },
+{ url: "https://gartic.io/", img: "https://игры.online/photo/thumb.png" },
 { url: "https://taming.io/", img: "https://игры.online/photo/tamingio.png" }
 ];
     function extractName(url) {
