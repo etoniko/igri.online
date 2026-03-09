@@ -1,7 +1,6 @@
     const games = [
 { url: "https://agar.su/", video: "https://игры.online/video/agarsu.mp4" },
 { url: "https://agartime.ru/", img: "https://игры.online/photo/512x512.png" },
-{ url: "https://play-cs.com/ru/servers/", img: "https://игры.online/photo/cs.jpg" },
 { url: "https://tetrads.io/", img: "https://tetrads.io/logo.png" },
 { url: "https://krunker.io/", img: "https://игры.online/photo/ebb792ee30c08f6ba1241398ecd6ca021c760edc.png" },
 { url: "https://shellshock.io/", img: "https://www.shellshock.io/img/previewImage_shellShockers.webp" },
